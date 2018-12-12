@@ -44,11 +44,11 @@ GO_GET_U1 := $(addprefix github.com/gogo/protobuf/, proto protoc-gen-gofast prot
 GO_GET_U2 := $(addprefix github.com/golang/protobuf/, proto protoc-gen-go)
 GO_GET_U2 += google.golang.org/grpc
 
-.PHONY: build all install generate test debugtest vet fmt clean cleanall help $(WHAT) tools vendor
+.PHONY: build all install generate test debugtest vet fmt clean cleanall help $(WHAT) tools
 
 build: $(WHAT)
 
-all: vendor generate build
+all: generate build
 
 install:
 	@for w in $(WHAT); do \
@@ -69,16 +69,16 @@ endif
 		go generate $(VERBOSE_$(V)) $$gendir; \
 	done
 
-test: tools/dep
+test:
 	go test -v --race $(SRC_DIRS) -ginkgo.progress
 
-debugtest: tools/dep
+debugtest:
 	go test -v --race $(SRC_DIRS) -ginkgo.v -ginkgo.trace -ginkgo.progress
 
-vet: tools/dep
+vet:
 	go vet $(SRC_DIRS)
 
-fmt: tools/dep
+fmt:
 	go fmt $(SRC_DIRS)
 
 clean:
@@ -86,20 +86,10 @@ clean:
 	@echo -e "clean done: \e[1;34mbin\e[0m"
 
 cleanall:
-	@rm -rf bin tools vendor
+	@rm -rf bin tools
 	@echo -e "clean done: \e[1;34mbin tools vendor\e[0m"
 
-vendor: tools/dep
-	@echo -e "\e[1;33mdep ensure\e[0m"
-	@./tools/dep ensure
-
-tools: tools/dep tools/protoc
-
-tools/dep:
-	@echo "downloading dep"
-	mkdir -p tools
-	curl -L https://github.com/golang/dep/releases/download/v0.3.2/dep-$(HOST_GOOS)-$(HOST_GOARCH) -o tools/dep
-	chmod +x tools/dep
+tools: tools/protoc
 
 tools/protoc:
 	@echo "installing Go protoc"
