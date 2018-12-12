@@ -7,8 +7,10 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
-import context "golang.org/x/net/context"
-import grpc "google.golang.org/grpc"
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
 
 import io "io"
 
@@ -196,7 +198,7 @@ var xxx_messageInfo_StatusRequest proto.InternalMessageInfo
 
 type StatusReply struct {
 	State                string          `protobuf:"bytes,1,opt,name=state,proto3" json:"state,omitempty"`
-	StatusUpdates        []*StatusUpdate `protobuf:"bytes,2,rep,name=statusUpdates" json:"statusUpdates,omitempty"`
+	StatusUpdates        []*StatusUpdate `protobuf:"bytes,2,rep,name=statusUpdates,proto3" json:"statusUpdates,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -299,7 +301,7 @@ type isStatusUpdate_Event interface {
 }
 
 type StatusUpdate_MesosHeartbeat struct {
-	MesosHeartbeat *Event_MesosHeartbeat `protobuf:"bytes,2,opt,name=mesosHeartbeat,oneof"`
+	MesosHeartbeat *Event_MesosHeartbeat `protobuf:"bytes,2,opt,name=mesosHeartbeat,proto3,oneof"`
 }
 
 func (*StatusUpdate_MesosHeartbeat) isStatusUpdate_Event() {}
@@ -632,7 +634,7 @@ var xxx_messageInfo_GetEnvironmentsRequest proto.InternalMessageInfo
 
 type GetEnvironmentsReply struct {
 	FrameworkId          string             `protobuf:"bytes,1,opt,name=frameworkId,proto3" json:"frameworkId,omitempty"`
-	Environments         []*EnvironmentInfo `protobuf:"bytes,2,rep,name=environments" json:"environments,omitempty"`
+	Environments         []*EnvironmentInfo `protobuf:"bytes,2,rep,name=environments,proto3" json:"environments,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
 	XXX_unrecognized     []byte             `json:"-"`
 	XXX_sizecache        int32              `json:"-"`
@@ -689,7 +691,7 @@ type EnvironmentInfo struct {
 	Id                   string           `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	CreatedWhen          string           `protobuf:"bytes,2,opt,name=createdWhen,proto3" json:"createdWhen,omitempty"`
 	State                string           `protobuf:"bytes,3,opt,name=state,proto3" json:"state,omitempty"`
-	Tasks                []*ShortTaskInfo `protobuf:"bytes,4,rep,name=tasks" json:"tasks,omitempty"`
+	Tasks                []*ShortTaskInfo `protobuf:"bytes,4,rep,name=tasks,proto3" json:"tasks,omitempty"`
 	RootRole             string           `protobuf:"bytes,5,opt,name=rootRole,proto3" json:"rootRole,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
@@ -812,7 +814,7 @@ func (m *NewEnvironmentRequest) GetWorkflowTemplate() string {
 }
 
 type NewEnvironmentReply struct {
-	Environment          *EnvironmentInfo `protobuf:"bytes,1,opt,name=environment" json:"environment,omitempty"`
+	Environment          *EnvironmentInfo `protobuf:"bytes,1,opt,name=environment,proto3" json:"environment,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -906,8 +908,8 @@ func (m *GetEnvironmentRequest) GetId() string {
 }
 
 type GetEnvironmentReply struct {
-	Environment          *EnvironmentInfo `protobuf:"bytes,1,opt,name=environment" json:"environment,omitempty"`
-	Workflow             *RoleInfo        `protobuf:"bytes,2,opt,name=workflow" json:"workflow,omitempty"`
+	Environment          *EnvironmentInfo `protobuf:"bytes,1,opt,name=environment,proto3" json:"environment,omitempty"`
+	Workflow             *RoleInfo        `protobuf:"bytes,2,opt,name=workflow,proto3" json:"workflow,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -1072,7 +1074,7 @@ func (m *ControlEnvironmentReply) GetState() string {
 
 type ModifyEnvironmentRequest struct {
 	Id                   string                  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Operations           []*EnvironmentOperation `protobuf:"bytes,2,rep,name=operations" json:"operations,omitempty"`
+	Operations           []*EnvironmentOperation `protobuf:"bytes,2,rep,name=operations,proto3" json:"operations,omitempty"`
 	ReconfigureAll       bool                    `protobuf:"varint,3,opt,name=reconfigureAll,proto3" json:"reconfigureAll,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
 	XXX_unrecognized     []byte                  `json:"-"`
@@ -1189,7 +1191,7 @@ func (m *EnvironmentOperation) GetRoleName() string {
 }
 
 type ModifyEnvironmentReply struct {
-	FailedOperations     []*EnvironmentOperation `protobuf:"bytes,1,rep,name=failedOperations" json:"failedOperations,omitempty"`
+	FailedOperations     []*EnvironmentOperation `protobuf:"bytes,1,rep,name=failedOperations,proto3" json:"failedOperations,omitempty"`
 	Id                   string                  `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	State                string                  `protobuf:"bytes,3,opt,name=state,proto3" json:"state,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
@@ -1347,7 +1349,7 @@ type ShortTaskInfo struct {
 	Status               string              `protobuf:"bytes,4,opt,name=status,proto3" json:"status,omitempty"`
 	State                string              `protobuf:"bytes,5,opt,name=state,proto3" json:"state,omitempty"`
 	ClassName            string              `protobuf:"bytes,6,opt,name=className,proto3" json:"className,omitempty"`
-	DeploymentInfo       *TaskDeploymentInfo `protobuf:"bytes,7,opt,name=deploymentInfo" json:"deploymentInfo,omitempty"`
+	DeploymentInfo       *TaskDeploymentInfo `protobuf:"bytes,7,opt,name=deploymentInfo,proto3" json:"deploymentInfo,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
 	XXX_unrecognized     []byte              `json:"-"`
 	XXX_sizecache        int32               `json:"-"`
@@ -1546,7 +1548,7 @@ func (m *GetTasksRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_GetTasksRequest proto.InternalMessageInfo
 
 type GetTasksReply struct {
-	Tasks                []*ShortTaskInfo `protobuf:"bytes,1,rep,name=tasks" json:"tasks,omitempty"`
+	Tasks                []*ShortTaskInfo `protobuf:"bytes,1,rep,name=tasks,proto3" json:"tasks,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -1640,7 +1642,7 @@ func (m *GetTaskRequest) GetTaskId() string {
 }
 
 type GetTaskReply struct {
-	Task                 *TaskInfo `protobuf:"bytes,1,opt,name=task" json:"task,omitempty"`
+	Task                 *TaskInfo `protobuf:"bytes,1,opt,name=task,proto3" json:"task,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
 	XXX_unrecognized     []byte    `json:"-"`
 	XXX_sizecache        int32     `json:"-"`
@@ -1742,10 +1744,10 @@ func (m *TaskClassInfo) GetControlMode() string {
 }
 
 type CommandInfo struct {
-	Env                  []string `protobuf:"bytes,1,rep,name=env" json:"env,omitempty"`
+	Env                  []string `protobuf:"bytes,1,rep,name=env,proto3" json:"env,omitempty"`
 	Shell                bool     `protobuf:"varint,2,opt,name=shell,proto3" json:"shell,omitempty"`
 	Value                string   `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
-	Arguments            []string `protobuf:"bytes,4,rep,name=arguments" json:"arguments,omitempty"`
+	Arguments            []string `protobuf:"bytes,4,rep,name=arguments,proto3" json:"arguments,omitempty"`
 	User                 string   `protobuf:"bytes,5,opt,name=user,proto3" json:"user,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -1884,11 +1886,11 @@ func (m *ChannelInfo) GetTarget() string {
 }
 
 type TaskInfo struct {
-	ShortInfo            *ShortTaskInfo `protobuf:"bytes,1,opt,name=shortInfo" json:"shortInfo,omitempty"`
-	ClassInfo            *TaskClassInfo `protobuf:"bytes,2,opt,name=classInfo" json:"classInfo,omitempty"`
-	InboundChannels      []*ChannelInfo `protobuf:"bytes,3,rep,name=inboundChannels" json:"inboundChannels,omitempty"`
-	OutboundChannels     []*ChannelInfo `protobuf:"bytes,4,rep,name=outboundChannels" json:"outboundChannels,omitempty"`
-	CommandInfo          *CommandInfo   `protobuf:"bytes,5,opt,name=commandInfo" json:"commandInfo,omitempty"`
+	ShortInfo            *ShortTaskInfo `protobuf:"bytes,1,opt,name=shortInfo,proto3" json:"shortInfo,omitempty"`
+	ClassInfo            *TaskClassInfo `protobuf:"bytes,2,opt,name=classInfo,proto3" json:"classInfo,omitempty"`
+	InboundChannels      []*ChannelInfo `protobuf:"bytes,3,rep,name=inboundChannels,proto3" json:"inboundChannels,omitempty"`
+	OutboundChannels     []*ChannelInfo `protobuf:"bytes,4,rep,name=outboundChannels,proto3" json:"outboundChannels,omitempty"`
+	CommandInfo          *CommandInfo   `protobuf:"bytes,5,opt,name=commandInfo,proto3" json:"commandInfo,omitempty"`
 	TaskPath             string         `protobuf:"bytes,6,opt,name=taskPath,proto3" json:"taskPath,omitempty"`
 	EnvId                string         `protobuf:"bytes,7,opt,name=envId,proto3" json:"envId,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
@@ -1979,7 +1981,7 @@ func (m *TaskInfo) GetEnvId() string {
 }
 
 type CleanupTasksRequest struct {
-	TaskIds              []string `protobuf:"bytes,1,rep,name=taskIds" json:"taskIds,omitempty"`
+	TaskIds              []string `protobuf:"bytes,1,rep,name=taskIds,proto3" json:"taskIds,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -2026,8 +2028,8 @@ func (m *CleanupTasksRequest) GetTaskIds() []string {
 }
 
 type CleanupTasksReply struct {
-	KilledTasks          []*ShortTaskInfo `protobuf:"bytes,1,rep,name=killedTasks" json:"killedTasks,omitempty"`
-	RunningTasks         []*ShortTaskInfo `protobuf:"bytes,2,rep,name=runningTasks" json:"runningTasks,omitempty"`
+	KilledTasks          []*ShortTaskInfo `protobuf:"bytes,1,rep,name=killedTasks,proto3" json:"killedTasks,omitempty"`
+	RunningTasks         []*ShortTaskInfo `protobuf:"bytes,2,rep,name=runningTasks,proto3" json:"runningTasks,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -2143,8 +2145,8 @@ type RoleInfo struct {
 	Status               string      `protobuf:"bytes,2,opt,name=status,proto3" json:"status,omitempty"`
 	State                string      `protobuf:"bytes,3,opt,name=state,proto3" json:"state,omitempty"`
 	FullPath             string      `protobuf:"bytes,4,opt,name=fullPath,proto3" json:"fullPath,omitempty"`
-	TaskIds              []string    `protobuf:"bytes,5,rep,name=taskIds" json:"taskIds,omitempty"`
-	Roles                []*RoleInfo `protobuf:"bytes,6,rep,name=roles" json:"roles,omitempty"`
+	TaskIds              []string    `protobuf:"bytes,5,rep,name=taskIds,proto3" json:"taskIds,omitempty"`
+	Roles                []*RoleInfo `protobuf:"bytes,6,rep,name=roles,proto3" json:"roles,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
 	XXX_sizecache        int32       `json:"-"`
@@ -2226,7 +2228,7 @@ func (m *RoleInfo) GetRoles() []*RoleInfo {
 }
 
 type GetRolesReply struct {
-	Roles                []*RoleInfo `protobuf:"bytes,1,rep,name=roles" json:"roles,omitempty"`
+	Roles                []*RoleInfo `protobuf:"bytes,1,rep,name=roles,proto3" json:"roles,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
 	XXX_unrecognized     []byte      `json:"-"`
 	XXX_sizecache        int32       `json:"-"`
@@ -2312,7 +2314,7 @@ func (m *GetWorkflowTemplatesRequest) XXX_DiscardUnknown() {
 var xxx_messageInfo_GetWorkflowTemplatesRequest proto.InternalMessageInfo
 
 type GetWorkflowTemplatesReply struct {
-	WorkflowTemplates    []string `protobuf:"bytes,1,rep,name=workflowTemplates" json:"workflowTemplates,omitempty"`
+	WorkflowTemplates    []string `protobuf:"bytes,1,rep,name=workflowTemplates,proto3" json:"workflowTemplates,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -2411,8 +2413,9 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Control service
-
+// ControlClient is the client API for Control service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ControlClient interface {
 	TrackStatus(ctx context.Context, in *StatusRequest, opts ...grpc.CallOption) (Control_TrackStatusClient, error)
 	GetFrameworkInfo(ctx context.Context, in *GetFrameworkInfoRequest, opts ...grpc.CallOption) (*GetFrameworkInfoReply, error)
@@ -2587,8 +2590,7 @@ func (c *controlClient) GetWorkflowTemplates(ctx context.Context, in *GetWorkflo
 	return out, nil
 }
 
-// Server API for Control service
-
+// ControlServer is the server API for Control service.
 type ControlServer interface {
 	TrackStatus(*StatusRequest, Control_TrackStatusServer) error
 	GetFrameworkInfo(context.Context, *GetFrameworkInfoRequest) (*GetFrameworkInfoReply, error)
@@ -4405,6 +4407,9 @@ func encodeVarintO2Control(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *Event_MesosHeartbeat) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4414,6 +4419,9 @@ func (m *Event_MesosHeartbeat) Size() (n int) {
 }
 
 func (m *StatusRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4423,6 +4431,9 @@ func (m *StatusRequest) Size() (n int) {
 }
 
 func (m *StatusReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.State)
@@ -4442,6 +4453,9 @@ func (m *StatusReply) Size() (n int) {
 }
 
 func (m *StatusUpdate) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Level != 0 {
@@ -4457,6 +4471,9 @@ func (m *StatusUpdate) Size() (n int) {
 }
 
 func (m *StatusUpdate_MesosHeartbeat) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.MesosHeartbeat != nil {
@@ -4466,6 +4483,9 @@ func (m *StatusUpdate_MesosHeartbeat) Size() (n int) {
 	return n
 }
 func (m *GetFrameworkInfoRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4475,6 +4495,9 @@ func (m *GetFrameworkInfoRequest) Size() (n int) {
 }
 
 func (m *GetFrameworkInfoReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.FrameworkId)
@@ -4501,6 +4524,9 @@ func (m *GetFrameworkInfoReply) Size() (n int) {
 }
 
 func (m *TeardownRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Reason)
@@ -4514,6 +4540,9 @@ func (m *TeardownRequest) Size() (n int) {
 }
 
 func (m *TeardownReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4523,6 +4552,9 @@ func (m *TeardownReply) Size() (n int) {
 }
 
 func (m *GetEnvironmentsRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4532,6 +4564,9 @@ func (m *GetEnvironmentsRequest) Size() (n int) {
 }
 
 func (m *GetEnvironmentsReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.FrameworkId)
@@ -4551,6 +4586,9 @@ func (m *GetEnvironmentsReply) Size() (n int) {
 }
 
 func (m *EnvironmentInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4582,6 +4620,9 @@ func (m *EnvironmentInfo) Size() (n int) {
 }
 
 func (m *NewEnvironmentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.WorkflowTemplate)
@@ -4595,6 +4636,9 @@ func (m *NewEnvironmentRequest) Size() (n int) {
 }
 
 func (m *NewEnvironmentReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Environment != nil {
@@ -4608,6 +4652,9 @@ func (m *NewEnvironmentReply) Size() (n int) {
 }
 
 func (m *GetEnvironmentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4621,6 +4668,9 @@ func (m *GetEnvironmentRequest) Size() (n int) {
 }
 
 func (m *GetEnvironmentReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Environment != nil {
@@ -4638,6 +4688,9 @@ func (m *GetEnvironmentReply) Size() (n int) {
 }
 
 func (m *ControlEnvironmentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4654,6 +4707,9 @@ func (m *ControlEnvironmentRequest) Size() (n int) {
 }
 
 func (m *ControlEnvironmentReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4671,6 +4727,9 @@ func (m *ControlEnvironmentReply) Size() (n int) {
 }
 
 func (m *ModifyEnvironmentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4693,6 +4752,9 @@ func (m *ModifyEnvironmentRequest) Size() (n int) {
 }
 
 func (m *EnvironmentOperation) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Type != 0 {
@@ -4709,6 +4771,9 @@ func (m *EnvironmentOperation) Size() (n int) {
 }
 
 func (m *ModifyEnvironmentReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.FailedOperations) > 0 {
@@ -4732,6 +4797,9 @@ func (m *ModifyEnvironmentReply) Size() (n int) {
 }
 
 func (m *DestroyEnvironmentRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Id)
@@ -4745,6 +4813,9 @@ func (m *DestroyEnvironmentRequest) Size() (n int) {
 }
 
 func (m *DestroyEnvironmentReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4754,6 +4825,9 @@ func (m *DestroyEnvironmentReply) Size() (n int) {
 }
 
 func (m *ShortTaskInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -4790,6 +4864,9 @@ func (m *ShortTaskInfo) Size() (n int) {
 }
 
 func (m *TaskDeploymentInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Hostname)
@@ -4815,6 +4892,9 @@ func (m *TaskDeploymentInfo) Size() (n int) {
 }
 
 func (m *GetTasksRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -4824,6 +4904,9 @@ func (m *GetTasksRequest) Size() (n int) {
 }
 
 func (m *GetTasksReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.Tasks) > 0 {
@@ -4839,6 +4922,9 @@ func (m *GetTasksReply) Size() (n int) {
 }
 
 func (m *GetTaskRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.TaskId)
@@ -4852,6 +4938,9 @@ func (m *GetTaskRequest) Size() (n int) {
 }
 
 func (m *GetTaskReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Task != nil {
@@ -4865,6 +4954,9 @@ func (m *GetTaskReply) Size() (n int) {
 }
 
 func (m *TaskClassInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -4882,6 +4974,9 @@ func (m *TaskClassInfo) Size() (n int) {
 }
 
 func (m *CommandInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.Env) > 0 {
@@ -4914,6 +5009,9 @@ func (m *CommandInfo) Size() (n int) {
 }
 
 func (m *ChannelInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -4935,6 +5033,9 @@ func (m *ChannelInfo) Size() (n int) {
 }
 
 func (m *TaskInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.ShortInfo != nil {
@@ -4976,6 +5077,9 @@ func (m *TaskInfo) Size() (n int) {
 }
 
 func (m *CleanupTasksRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.TaskIds) > 0 {
@@ -4991,6 +5095,9 @@ func (m *CleanupTasksRequest) Size() (n int) {
 }
 
 func (m *CleanupTasksReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.KilledTasks) > 0 {
@@ -5012,6 +5119,9 @@ func (m *CleanupTasksReply) Size() (n int) {
 }
 
 func (m *GetRolesRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.EnvId)
@@ -5029,6 +5139,9 @@ func (m *GetRolesRequest) Size() (n int) {
 }
 
 func (m *RoleInfo) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Name)
@@ -5066,6 +5179,9 @@ func (m *RoleInfo) Size() (n int) {
 }
 
 func (m *GetRolesReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.Roles) > 0 {
@@ -5081,6 +5197,9 @@ func (m *GetRolesReply) Size() (n int) {
 }
 
 func (m *GetWorkflowTemplatesRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -5090,6 +5209,9 @@ func (m *GetWorkflowTemplatesRequest) Size() (n int) {
 }
 
 func (m *GetWorkflowTemplatesReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if len(m.WorkflowTemplates) > 0 {

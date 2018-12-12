@@ -7,8 +7,10 @@ import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
-import context "golang.org/x/net/context"
-import grpc "google.golang.org/grpc"
+import (
+	context "golang.org/x/net/context"
+	grpc "google.golang.org/grpc"
+)
 
 import io "io"
 
@@ -310,7 +312,7 @@ func (m *ConfigEntry) GetValue() string {
 type TransitionRequest struct {
 	SrcState             string         `protobuf:"bytes,1,opt,name=srcState,proto3" json:"srcState,omitempty"`
 	Event                string         `protobuf:"bytes,2,opt,name=event,proto3" json:"event,omitempty"`
-	Arguments            []*ConfigEntry `protobuf:"bytes,3,rep,name=arguments" json:"arguments,omitempty"`
+	Arguments            []*ConfigEntry `protobuf:"bytes,3,rep,name=arguments,proto3" json:"arguments,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
@@ -461,8 +463,9 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Occ service
-
+// OccClient is the client API for Occ service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type OccClient interface {
 	// We have to have a notification stream because the FairMQDevice might transition
 	// on its own for whatever reason.
@@ -529,8 +532,7 @@ func (c *occClient) Transition(ctx context.Context, in *TransitionRequest, opts 
 	return out, nil
 }
 
-// Server API for Occ service
-
+// OccServer is the server API for Occ service.
 type OccServer interface {
 	// We have to have a notification stream because the FairMQDevice might transition
 	// on its own for whatever reason.
@@ -860,6 +862,9 @@ func encodeVarintOcc(dAtA []byte, offset int, v uint64) int {
 	return offset + 1
 }
 func (m *StateStreamRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -869,6 +874,9 @@ func (m *StateStreamRequest) Size() (n int) {
 }
 
 func (m *StateStreamReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Type != 0 {
@@ -885,6 +893,9 @@ func (m *StateStreamReply) Size() (n int) {
 }
 
 func (m *GetStateRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.XXX_unrecognized != nil {
@@ -894,6 +905,9 @@ func (m *GetStateRequest) Size() (n int) {
 }
 
 func (m *GetStateReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.State)
@@ -907,6 +921,9 @@ func (m *GetStateReply) Size() (n int) {
 }
 
 func (m *ConfigEntry) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.Key)
@@ -924,6 +941,9 @@ func (m *ConfigEntry) Size() (n int) {
 }
 
 func (m *TransitionRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	l = len(m.SrcState)
@@ -947,6 +967,9 @@ func (m *TransitionRequest) Size() (n int) {
 }
 
 func (m *TransitionReply) Size() (n int) {
+	if m == nil {
+		return 0
+	}
 	var l int
 	_ = l
 	if m.Trigger != 0 {
